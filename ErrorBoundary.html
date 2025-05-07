@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React Error Boundary Example</title>
+  <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.20.15/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    class ErrorBoundary extends React.Component {
+      state = { hasError: false };
+
+      static getDerivedStateFromError(error) {
+        return { hasError: true };
+      }
+
+      render() {
+        if (this.state.hasError) {
+          return (
+            <div className="p-4 bg-red-100 rounded">
+              <h2 className="text-xl font-bold text-red-800">Something went wrong!</h2>
+            </div>
+          );
+        }
+        return this.props.children;
+      }
+    }
+
+    const BuggyComponent = () => {
+      throw new Error('I crashed!');
+      return <div>Never renders</div>;
+    };
+
+    const App = () => (
+      <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
+        <h1 className="text-3xl font-bold text-gray-800">Error Boundary Example</h1>
+        <ErrorBoundary>
+          <BuggyComponent />
+        </ErrorBoundary>
+      </div>
+    );
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>
