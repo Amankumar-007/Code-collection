@@ -25,3 +25,15 @@ const App = () => (
 );
 
 export default App;
+
+
+// use tailwindcss to style the component
+// also config index.js 
+// import React from 'react';
+// import ReactDOM from 'react-dom/client';
+// import App from './App';
+// import './index.css'; // Tailwind CSS included
+
+// ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+
+

@@ -50,3 +50,4 @@ const ModalTrigger = () => {
 };
 
 export default App;
+User.js

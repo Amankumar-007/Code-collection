@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React Memo Example</title>
+  <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.20.15/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const ExpensiveComponent = React.memo(({ number }) => {
+      console.log('Rendering ExpensiveComponent');
+      return (
+        <div className="p-4 bg-yellow-100 rounded">
+          <p className="text-lg">Expensive Computation: {number ** 2}</p>
+        </div>
+      );
+    });
+
+    const App = () => {
+      const [count, setCount] = React.useState(0);
+      const [number, setNumber] = React.useState(5);
+
+      return (
+        <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
+          <h1 className="text-3xl font-bold text-gray-800">React Memo Example</h1>
+          <p className="mt-4 text-lg">Count: {count}</p>
+          <button
+            onClick={() => setCount(count + 1)}
+            className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          >
+            Increment Count
+          </button>
+          <ExpensiveComponent number={number} />
+        </div>
+      );
+    };
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>
